@@ -5,6 +5,11 @@
 .btn {
     @apply px-4 py-2 text-white bg-indigo-500 rounded-md hover:bg-white hover:text-indigo-500 duration-200 border-2 border-indigo-500 font-bold text-lg;
 }
+
+.btn-sm {
+    @apply px-4 py-2 text-white bg-indigo-500 rounded-md hover:bg-white hover:text-indigo-500 duration-200 border-2 border-indigo-500;
+}
+
 .flexBox{
     @apply flex flex-wrap justify-center items-center gap-6 p-12 md:w-2/3 lg:w-1/2 mx-auto;
 }

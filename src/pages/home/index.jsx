@@ -34,6 +34,23 @@ const index = () => {
             Add Doctor
           </Link>
         </div>
+        <div className="space-x-8">
+          <Link to={"/generate/report/cbc"} className="btn">
+            Create CBC Report
+          </Link>
+          <Link to={"/create-invoice"} className="btn">
+            Add Doctor
+          </Link>
+        </div>
+        <div className="space-x-8">
+          <Link to={"/reports"} className="btn">
+            Manage Reports
+          </Link>
+          <Link to={"/invoices"} className="btn">
+            Manage Invoices
+          </Link>
+         
+        </div>
       </div>
     </section>
   )
