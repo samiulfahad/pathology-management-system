@@ -9,9 +9,9 @@ const Reports = () => {
   const testList = ["cbc", "rbs", "lipid profile", "xray"]
   const isValidTest = testList.includes(testName.toLowerCase())
 
-  useEffect(()=>{
-    if(!isValidTest){
-        navigate('/page404')
+  useEffect(() => {
+    if (!isValidTest) {
+      navigate("/page404")
     }
   }, [testName, testList])
 
@@ -27,10 +27,6 @@ const Reports = () => {
     <section>
       <div className="flex flex-col justify-between items-center w-full md:w-4/5 mx-auto mt-10 gap-4">
         <div className="text-xl font-bold mx-auto text-center"> Manage All {testName.toUpperCase()} Reports</div>
-        <Link className="btn">
-          {" "}
-          <AddBoxIcon /> {testName.toUpperCase()} Report
-        </Link>
         <div className="w-full md:w-4/5">
           <Table columns={columns} data={data} />
         </div>

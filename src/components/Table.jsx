@@ -31,14 +31,14 @@ const Table = ({ columns, data }) => {
                       {row[row.length - 1] ? (
                         <>
                           <Link to={`/download/${row[0]}`} className="btn-sm">
-                            Download
+                            View
                           </Link>
-                          <Link to={`/edit/${row[0]}`} className="px-2 py-2">
+                          {/* <Link to={`/edit/${row[0]}`} className="px-2 py-2">
                             {" "}
                             <Tooltip content="View/Edit05557">
                               <PreviewIcon />
                             </Tooltip>{" "}
-                          </Link>
+                          </Link> */}
                         </>
                       ) : (
                         <Link to={`/generate/${row[0]}`} className="btn-sm !bg-blue-500 !border-blue-500">

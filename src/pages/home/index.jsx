@@ -12,45 +12,24 @@ const index = () => {
     </div>
         <div className="space-x-8">
           <Link to={"/create-invoice"} className="btn">
-            Create New Invoice
+            Create Invoice
           </Link>
-          <Link to={"/create-invoice"} className="btn">
-            All Invoices
-          </Link>
-        </div>
-        <div className="space-x-8">
-          <Link to={"/create-invoice"} className="btn">
-            Test List
-          </Link>
-          <Link to={"/create-invoice"} className="btn">
-            Add New Test
-          </Link>
-        </div>
-        <div className="space-x-8">
-          <Link to={"/create-invoice"} className="btn">
-            Referred Doctor List
-          </Link>
-          <Link to={"/create-invoice"} className="btn">
-            Add Doctor
-          </Link>
-        </div>
-        <div className="space-x-8">
-          <Link to={"/generate/report/cbc"} className="btn">
-            Create CBC Report
-          </Link>
-          <Link to={"/create-invoice"} className="btn">
-            Add Doctor
+          <Link to={"/invoices"} className="btn">
+            Download Reports
           </Link>
         </div>
         <div className="space-x-8">
           <Link to={"/reports"} className="btn">
-            Manage Reports
+            Upload Reports
           </Link>
-          <Link to={"/invoices"} className="btn">
-            Manage Invoices
+          <Link to={"/"} className="btn">
+            Collect Payment
           </Link>
-         
+          <Link to={"/"} className="btn">
+            Deliver Reports
+          </Link>
         </div>
+        
       </div>
     </section>
   )
