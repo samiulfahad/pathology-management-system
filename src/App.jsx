@@ -7,6 +7,7 @@ import Page404 from "./pages/Page404"
 import TestList from "./pages/manage-reports/TestList"
 import InvoiceList from "./pages/manage-invoices"
 import InvoiceDetails from "./pages/invoice-details"
+import CollectPayment from "./pages/collect-payment"
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/reports" element={<TestList />} />
         <Route path="/reports/:testName" element={<Reports />} />
         <Route path="/create-invoice" element={<CreateInvoice />} />
+        <Route path="/collect-payment" element={<CollectPayment/>} />
         <Route path="*" element={<Page404 />} />
       </Routes>
     </section>

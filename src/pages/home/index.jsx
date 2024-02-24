@@ -15,14 +15,14 @@ const index = () => {
             Create Invoice
           </Link>
           <Link to={"/invoices"} className="btn">
-            Download Reports
+            Overview
           </Link>
         </div>
         <div className="space-x-8">
           <Link to={"/reports"} className="btn">
             Upload Reports
           </Link>
-          <Link to={"/"} className="btn">
+          <Link to={"/collect-payment"} className="btn">
             Collect Payment
           </Link>
           <Link to={"/"} className="btn">
