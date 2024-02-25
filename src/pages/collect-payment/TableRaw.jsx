@@ -18,7 +18,7 @@ const TableRaw = ({ id, totalAmount, initialPayment }) => {
     )
   return (
     <>
-    {modal && <Modal title="Collect payment" onClose={()=> setModal(false)}/>}
+    {modal && <Modal totalAmount={totalAmount} initialPayment={initialPayment} onClose={()=> setModal(false)}/>}
       <tr className="hover:bg-indigo-100 font-bold transition duration-300">
         <td className="py-4 px-6">{id}</td>
         <td className="py-4 px-6">{totalAmount}</td>

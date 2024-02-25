@@ -27,7 +27,7 @@ const CollectPayment = () => {
   return (
     <section className="bg-gray-300 h-screen flex flex-col justify-start items-center">
       <h1 className="py-10 text-center font-bold text-3xl text-indigo-600">Payment Collection</h1>
-      <div className="w-full md:w-2/5 overflow-hidden">
+      <div className="w-full md:w-3/5 overflow-hidden">
         <table className="w-full bg-white rounded-lg shadow-lg">
           <thead className="bg-indigo-600 text-white">
             <tr>
