@@ -1,5 +1,4 @@
 import { Input } from "@material-tailwind/react"
-import ClearIcon from '@mui/icons-material/Clear';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { useState } from "react"
 

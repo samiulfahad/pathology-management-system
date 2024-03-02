@@ -1,7 +1,5 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import PreviewIcon from "@mui/icons-material/Preview"
-import { Tooltip } from "@material-tailwind/react"
 
 const Table = ({ columns, data }) => {
   return (

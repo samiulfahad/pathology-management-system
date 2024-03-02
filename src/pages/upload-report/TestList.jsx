@@ -6,7 +6,7 @@ const TestList = () => {
   return (
     <div className='flexCol'>
         {testList.map(test=> (
-            <Link to={`/reports/${test}`} key={test} > {test.toUpperCase()} </Link>
+            <Link to={`/upload-report/${test}`} key={test} > {test.toUpperCase()} </Link>
         ))}
     </div>
   )

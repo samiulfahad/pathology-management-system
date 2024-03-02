@@ -4,7 +4,7 @@ import PaymentStatus from "./PaymentStatus";
 import DeliveryStatus from "./DeliveryStatus";
 import ViewReports from "./ViewReports";
 
-const InvoiceList = () => {
+const Overview = ({title}) => {
   const LIST = [
     {
       id: 123,
@@ -58,10 +58,10 @@ const InvoiceList = () => {
   ];
 
   return (
-    <section className="bg-gray-100 h-screen">
-      <div className="text-3xl font-bold text-center pt-20 mb-8">All Invoices</div>
-      <div className="w-full max-w-screen-lg mx-auto">
-        <table className="w-full bg-white rounded-lg shadow-lg overflow-hidden">
+    <section className="bg-gray-100 pb-20 mt-10 mb-20 w-full mx-auto">
+      <div className="text-3xl font-bold text-center">{title}</div>
+      <div className="md:w-2/3 mx-auto">
+        <table className="w-full mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
           <thead className="text-white bg-gray-800">
             <tr>
               <th className="py-3 px-4 text-left uppercase font-semibold text-sm">Invoice ID</th>
@@ -94,4 +94,4 @@ const InvoiceList = () => {
   );
 };
 
-export default InvoiceList;
+export default Overview;

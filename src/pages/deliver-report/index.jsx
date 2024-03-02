@@ -1,34 +1,41 @@
 import TableRow from "./TableRow"
 import Pagination from "../../components/Pagination"
-const TABLE_HEAD = ["Invoice ID", "Name", "Total", "Due" ,"Action"]
+
+const TABLE_HEAD = ["Invoice ID", "Name", "Contact", "Delivery"]
 const TABLE_ROWS = [
   {
-    id: 123456,
-    name: "Rahul",
-    totalAmount: 1500,
-    initialPayment: 1500,
+    id: 123,
+    name: "John Michael",
+    contact: 1475554,
+    delivered: false,
   },
   {
-    id: 123654,
-    name: "Rana",
-    totalAmount: 800,
-    initialPayment: 100,
+    id: 124,
+    name: "John Mike",
+    contact: 1475554,
+    delivered: false,
   },
   {
-    id: 12365,
-    name: "Himel",
-    totalAmount: 5000,
-    initialPayment: 500,
+    id: 125,
+    name: "John",
+    contact: 1475554,
+    delivered: true,
   },
   {
-    id: 1234566,
-    name: "Kayesh",
-    totalAmount: 2500,
-    initialPayment: 2500,
+    id: 127,
+    name: "Michael",
+    contact: 1475554,
+    delivered: true,
+  },
+  {
+    id: 128,
+    name: "John Michael",
+    contact: 1475554,
+    delivered: false,
   },
 ]
 
-const CollectPayment = () => {
+const DeliverReport = () => {
   return (
     <section className="min-w-max">
       <table className="w-full mx-auto bg-indigo-50 min-w-max table-auto text-left md:w-2/3 md:mt-20">
@@ -42,20 +49,11 @@ const CollectPayment = () => {
           </tr>
         </thead>
         <tbody>
-          {TABLE_ROWS.map(({ id, name, totalAmount, initialPayment }, index) => {
+          {TABLE_ROWS.map(({ id, name, contact, delivered }, index) => {
             const isLast = index === TABLE_ROWS.length - 1
             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-500"
 
-            return (
-              <TableRow
-                key={id}
-                id={id}
-                name={name}
-                totalAmount={totalAmount}
-                initialPayment={initialPayment}
-                classes={classes}
-              />
-            )
+            return <TableRow id={id} name={name} contact={contact} delivered={delivered} classes={classes} />
           })}
         </tbody>
       </table>
@@ -66,4 +64,4 @@ const CollectPayment = () => {
   )
 }
 
-export default CollectPayment
+export default DeliverReport
