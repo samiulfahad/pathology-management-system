@@ -1,44 +1,108 @@
 import TableRow from "./TableRow"
 import Pagination from "../../components/Pagination"
-import { Link } from "react-router-dom"
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddCircleIcon from "@mui/icons-material/AddCircle"
+import { useState } from "react"
+import Modal from "../../components/Modal"
+import Form from "./Form"
 
-const TABLE_HEAD = [ "Name", "Degree", "Action"]
+const TABLE_HEAD = ["Name", "Degree", "Action"]
 const TABLE_ROWS = [
   {
     id: 123,
-    name: "John Michael",
-    degree: "MBBS"
+    name: "John",
+    degree: "MBBS",
+    contact: 65465456,
   },
   {
     id: 124,
-    name: "John Mike",
-    degree: "FCPS, MBBS"
+    name: "Mike",
+    degree: "FCPS, MBBS",
+    contact: 6655,
   },
   {
     id: 125,
-    name: "John",
-    degree: "ENT Specialist"
+    name: "Milton",
+    degree: "ENT Specialist",
+    contact: 6655667,
   },
   {
     id: 127,
-    name: "Michael",
-    degree: "MBBS"
+    name: "Jim",
+    degree: "MBBS",
+    contact: 665578923,
   },
   {
     id: 128,
-    name: "John Michael",
-    degree: "Cardiologist"
+    name: "Fahim",
+    degree: "Cardiologist",
+    contact: 665566065,
   },
 ]
 
 const References = () => {
+  const initialFormData = { id: "", name: "", degree: "", contact: "" }
+  const [data, setData] = useState(TABLE_ROWS)
+  const [formData, setFormData] = useState(initialFormData)
+  const [mode, setMode] = useState(null) // Introduce mode state
+
+  const handleModeChange = (mode, doc = null) => {
+    setMode(mode)
+    setFormData(doc ? { ...doc } : initialFormData)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (mode === "edit") {
+      const updated = data.map((item) => (item.id === formData.id ? formData : item))
+      setData(updated)
+    } else {
+      const id = formData.name + formData.contact
+      const newData = {
+        ...formData,
+        id: id,
+      }
+
+      setData([...data, newData])
+    }
+    handleModeChange(null)
+  }
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData({ ...formData, [name]: value })
+  }
+
+  const handleEdit = (id) => {
+    const doc = data.find((item) => item.id === id)
+    handleModeChange("edit", doc)
+  }
+
+  const handleDelete = (id) => {
+    const updated = data.filter((item) => item.id !== id)
+    setData(updated)
+  }
+
   return (
     <section className="min-w-max">
-        <div className="flex w-full justify-center items-center mt-10">
+      {mode && (
+        <Modal
+          onClose={() => handleModeChange(null)}
+          title={mode === "add" ? "Add New Reference" : "Editing"}
+          actionText={mode === "add" ? "Add" : "Update"}
+          onSubmit={handleSubmit}
+        >
+          <Form onChange={handleChange} data={formData} />
+        </Modal>
+      )}
 
-        <Link className="text-lg px-6 py-2 font-bold text-white bg-indigo-500">Add New <AddCircleIcon/> </Link>
-        </div>
+      <div className="flex w-full justify-center items-center mt-10">
+        <button
+          onClick={() => handleModeChange("add")}
+          className="text-lg px-6 py-2 font-bold text-white bg-indigo-500"
+        >
+          Add New <AddCircleIcon />{" "}
+        </button>
+      </div>
       <table className="w-full mx-auto bg-indigo-50 min-w-max table-auto text-left md:w-2/3 md:mt-6">
         <thead>
           <tr>
@@ -50,11 +114,21 @@ const References = () => {
           </tr>
         </thead>
         <tbody>
-          {TABLE_ROWS.map(({ id, name, degree }, index) => {
-            const isLast = index === TABLE_ROWS.length - 1
+          {data.map(({ id, name, degree }, index) => {
+            const isLast = index === data.length - 1
             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-500"
 
-            return <TableRow key={id} id={id} name={name} degree={degree} classes={classes} />
+            return (
+              <TableRow
+                key={id}
+                id={id}
+                name={name}
+                degree={degree}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                classes={classes}
+              />
+            )
           })}
         </tbody>
       </table>
