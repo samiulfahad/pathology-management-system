@@ -1,5 +1,6 @@
 import TableRow from "./TableRow"
 import Pagination from "../../components/Pagination"
+import { useState } from "react"
 
 const TABLE_HEAD = ["Invoice ID", "Name", "Contact", "Delivery"]
 const TABLE_ROWS = [
@@ -36,6 +37,19 @@ const TABLE_ROWS = [
 ]
 
 const DeliverReport = () => {
+  const [data, setdata] = useState(TABLE_ROWS)
+
+  const handleDelivery = (id) => {
+    const updated = data.map((item) => {
+      if (item.id === id) {
+        item.delivered = !item.delivered
+        return item
+      }
+      return item
+    })
+    setdata(updated)
+  }
+
   return (
     <section className="min-w-max">
       <table className="w-full mx-auto bg-indigo-50 min-w-max table-auto text-left md:w-2/3 md:mt-20">
@@ -49,11 +63,11 @@ const DeliverReport = () => {
           </tr>
         </thead>
         <tbody>
-          {TABLE_ROWS.map(({ id, name, contact, delivered }, index) => {
+          {data.map(({ id, name, contact, delivered }, index) => {
             const isLast = index === TABLE_ROWS.length - 1
             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-500"
-
-            return <TableRow id={id} name={name} contact={contact} delivered={delivered} classes={classes} />
+            const data = { id, name, contact, delivered, handleDelivery, classes }
+            return <TableRow key={id} data={data} />
           })}
         </tbody>
       </table>

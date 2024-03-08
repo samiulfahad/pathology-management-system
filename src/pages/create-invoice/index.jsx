@@ -1,12 +1,19 @@
 import { Input, Select, Option, Checkbox } from "@material-tailwind/react"
 import React, { useState, useEffect } from "react"
 
+import PatientData from "./PatientData"
+import { useNavigate } from "react-router-dom"
+
 const CreateInvoice = () => {
+  const initialPatientData = { name: "", age: "", contact: "", referredBy: "" }
+  const navigate = useNavigate()
+  const [patientData, setPatientData] = useState(initialPatientData)
+
   const [checkedList, setCheckedList] = useState([])
   const [totalPrice, setTotalPrice] = useState(0)
   const [totalPayable, setTotalPayable] = useState(0)
   const [discount, setDiscount] = useState(0)
-  const [initialPayment, setInitialPayment] = useState(0)
+  const [paid, setPaid] = useState(0)
 
   const testList = [
     {
@@ -55,23 +62,31 @@ const CreateInvoice = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("Total: " + totalPrice)
-    console.log("Discount: " + discount)
-    console.log("Payable: " + totalPayable)
-    console.log("Paid: " + initialPayment)
-    const due = totalPayable - initialPayment
+
+    const due = totalPayable - paid
     console.log("Due: " + due)
     checkedList.forEach((item) => {
       console.log(item.name + " - " + item.price)
     })
   }
 
+  const handlePatientData = (e) => {
+    const { name, value } = e.target
+    setPatientData({...patientData, [name]: value})
+  }
+
+  const handleNext = (e) => {
+    navigate("/")
+  }
+
+  
+
   return (
     <section className="py-16 bg-stone-100 font-poppins dark:bg-gray-800">
       <div className="flex flex-col justify-center items-center mx-auto md:w-1/2">
         <h2 className="py-4 text-xl font-bold">Create an Invoice</h2>
         {/* Patient Info Section */}
-        <div className="w-full px-10 flex flex-wrap md:flex-nowrap flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-8">
+        {/* <div className="w-full px-10 flex flex-wrap md:flex-nowrap flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-8">
           <Input label="Name" />
           <Input label="Contact No." />
           <Select label="Referred By">
@@ -80,7 +95,9 @@ const CreateInvoice = () => {
             <Option>Doc 3</Option>
             <Option>Doc 4</Option>
           </Select>
-        </div>
+        </div> */}
+
+        <PatientData onClose={() => navigate("/")} onNext={handleNext} onChange={handlePatientData} />
 
         {/* Show Test List */}
         <div>
@@ -139,16 +156,16 @@ const CreateInvoice = () => {
                 <div className="flex justify-between">
                   Paid:{" "}
                   <input
-                    value={initialPayment}
+                    value={paid}
                     type="number"
                     className="text-right w-20"
-                    onChange={(e) => setInitialPayment(e.target.value)}
+                    onChange={(e) => setPaid(e.target.value)}
                   />
                 </div>
                 <div className="flex justify-between font-bold">
                   Due:
                   <p className="w-20 bg-red-500 text-white text-right pr-4 my-2">
-                    {parseFloat(totalPayable) - parseFloat(initialPayment)}
+                    {parseFloat(totalPayable) - parseFloat(paid)}
                   </p>
                 </div>
               </div>

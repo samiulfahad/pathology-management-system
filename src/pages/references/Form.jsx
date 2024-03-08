@@ -6,9 +6,9 @@ const Form = (props) => {
   return (
     <section>
       <form className="py-10 flex flex-col space-y-4">
-        <Input label="Name" name="name" onChange={props.onChange} value={name} /> {/* Use name from props.data */}
-        <Input label="Degree" name="degree" onChange={props.onChange} value={degree} /> {/* Use degree from props.data */}
-        <Input label="Contact No" name="contact" type="number" onChange={props.onChange} value={contact} /> {/* Use contact from props.data */}
+        <Input label="Name" name="name" onChange={props.onChange} value={name} /> 
+        <Input label="Degree" name="degree" onChange={props.onChange} value={degree} /> 
+        <Input label="Contact No" name="contact" type="number" onChange={props.onChange} value={contact} /> 
       </form>
     </section>
   )

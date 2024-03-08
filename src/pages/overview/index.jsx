@@ -1,10 +1,10 @@
-import React from "react";
+import React from "react"
 
-import PaymentStatus from "./PaymentStatus";
-import DeliveryStatus from "./DeliveryStatus";
-import ViewReports from "./ViewReports";
+import PaymentStatus from "./PaymentStatus"
+import DeliveryStatus from "./DeliveryStatus"
+import ViewReports from "./ViewReports"
 
-const Overview = ({title}) => {
+const Overview = ({ title }) => {
   const LIST = [
     {
       id: 123,
@@ -55,7 +55,7 @@ const Overview = ({title}) => {
       ],
       delivered: true,
     },
-  ];
+  ]
 
   return (
     <section className="bg-gray-100 pb-20 mt-10 mb-20 w-full mx-auto">
@@ -91,7 +91,7 @@ const Overview = ({title}) => {
         </table>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Overview;
+export default Overview
