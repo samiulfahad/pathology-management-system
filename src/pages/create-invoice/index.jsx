@@ -1,181 +1,113 @@
-import { Input, Select, Option, Checkbox } from "@material-tailwind/react"
-import React, { useState, useEffect } from "react"
-
+import React, { useEffect, useState } from "react"
 import PatientData from "./PatientData"
+import TestList from "./TestList"
+import InvoiceDetails from "./InvoiceDetails"
 import { useNavigate } from "react-router-dom"
+
+const testList = [
+  { name: "Blood Test 1", price: 300 },
+  { name: "Blood Test 2", price: 300 },
+  { name: "Blood Test 3", price: 300 },
+  { name: "RBS", price: 200 },
+  { name: "XRay", price: 350 },
+  { name: "ECG", price: 200 },
+]
 
 const CreateInvoice = () => {
   const initialPatientData = { name: "", age: "", contact: "", referredBy: "" }
   const navigate = useNavigate()
   const [patientData, setPatientData] = useState(initialPatientData)
+  const [patientDataModal, setPatientDataModal] = useState(true)
+  const [testListModal, setTestListModal] = useState(false)
+  const [invoiceDetails, setInvoiceDetails] = useState(false)
+  const [checkedTest, setCheckedTest] = useState([])
+  const [amount, setAmount] = useState({
+    total: 0,
+    discount: 0,
+    afterDiscount: 0,
+    adjustment: 0,
+    netAmount: 0,
+    paid: 0,
+    due: 0,
+  })
 
-  const [checkedList, setCheckedList] = useState([])
-  const [totalPrice, setTotalPrice] = useState(0)
-  const [totalPayable, setTotalPayable] = useState(0)
-  const [discount, setDiscount] = useState(0)
-  const [paid, setPaid] = useState(0)
-
-  const testList = [
-    {
-      name: "Blood Test 1",
-      price: 300,
-    },
-    {
-      name: "Blood Test 2",
-      price: 300,
-    },
-    {
-      name: "Blood Test 3",
-      price: 300,
-    },
-    {
-      name: "RBS",
-      price: 200,
-    },
-    {
-      name: "XRay",
-      price: 350,
-    },
-    {
-      name: "ECG",
-      price: 200,
-    },
-  ]
-
+  const n = amount.netAmount
+  const p = amount.paid
   useEffect(() => {
-    const total = checkedList.reduce((acc, curr) => acc + curr.price, 0)
-    setTotalPrice(total)
-  }, [checkedList])
-
-  useEffect(() => {
-    setTotalPayable(totalPrice - discount)
-  }, [totalPrice, discount])
-
-  const handleCheckboxChange = (test) => {
-    if (!checkedList.some((item) => item.name === test.name)) {
-      setCheckedList([...checkedList, test])
-    } else {
-      const updatedList = checkedList.filter((item) => item.name !== test.name)
-      setCheckedList(updatedList)
-    }
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-
-    const due = totalPayable - paid
-    console.log("Due: " + due)
-    checkedList.forEach((item) => {
-      console.log(item.name + " - " + item.price)
-    })
-  }
+    setAmount({ ...amount, due: amount.netAmount - amount.paid })
+  }, [n, p])
 
   const handlePatientData = (e) => {
     const { name, value } = e.target
-    setPatientData({...patientData, [name]: value})
+    setPatientData({ ...patientData, [name]: value })
   }
 
-  const handleNext = (e) => {
-    navigate("/")
+  const handleTestList = (test) => {
+    if (!checkedTest.some((item) => item.name === test.name)) {
+      setCheckedTest([...checkedTest, test])
+    } else {
+      const updated = checkedTest.filter((item) => item.name !== test.name)
+      setCheckedTest(updated)
+    }
   }
 
-  
+  const displayTestList = () => {
+    setPatientDataModal(false)
+    setInvoiceDetails(false)
+    setTestListModal(true)
+  }
+
+  const displayInvoiceDetails = () => {
+    setPatientDataModal(false)
+    setTestListModal(false)
+
+    const total = checkedTest.reduce((acc, item) => acc + item.price, 0)
+    setAmount({ ...amount, total, afterDiscount: total, netAmount: total })
+
+    setInvoiceDetails(true)
+  }
+
+  const handleDiscount = (d) => {
+    const discount = parseFloat(d || 0)
+    const afterDiscount = amount.total - amount.total * (discount / 100)
+    setAmount({ ...amount, discount, afterDiscount, netAmount: afterDiscount })
+  }
+
+  const handleAdjustment = (a) => {
+    const adjustment = parseFloat(a || 0)
+    const netAmount = amount.afterDiscount - adjustment
+    setAmount({ ...amount, adjustment, netAmount })
+  }
+
+  const handlePay = (paid) => {
+    const paidAmount = parseFloat(paid)
+    const due = amount.netAmount - paidAmount
+    setAmount({ ...amount, paid: paidAmount, due })
+  }
 
   return (
     <section className="py-16 bg-stone-100 font-poppins dark:bg-gray-800">
-      <div className="flex flex-col justify-center items-center mx-auto md:w-1/2">
-        <h2 className="py-4 text-xl font-bold">Create an Invoice</h2>
-        {/* Patient Info Section */}
-        {/* <div className="w-full px-10 flex flex-wrap md:flex-nowrap flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 md:space-x-8">
-          <Input label="Name" />
-          <Input label="Contact No." />
-          <Select label="Referred By">
-            <Option>Doc 1</Option>
-            <Option>Doc 2</Option>
-            <Option>Doc 3</Option>
-            <Option>Doc 4</Option>
-          </Select>
-        </div> */}
-
-        <PatientData onClose={() => navigate("/")} onNext={handleNext} onChange={handlePatientData} />
-
-        {/* Show Test List */}
-        <div>
-          <p className="text-lg font-bold mt-8 -mb-2 text-center">Select The Tests:</p>
-          <div className="flex flex-wrap items-center justify-center">
-            {testList.map((test) => (
-              <Checkbox
-                key={test.name}
-                label={test.name}
-                value={test.name}
-                onChange={() => handleCheckboxChange(test)}
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-indigo-200 w-4/5 mx-auto px-10 pt-4 pb-10 rounded-lg">
-          <div className="text-lg md:w-2/3 mx-auto font-bold flex justify-between items-center">
-            <p>Name</p>
-            <p>Price</p>
-          </div>
-          <div>
-            <form onSubmit={handleSubmit} className="w-full mx-auto">
-              {checkedList.map((test, index) => (
-                <div
-                  key={test.name}
-                  className="text-md font-bold md:w-2/3 space-x-6  mx-auto flex justify-between items-center"
-                >
-                  <p>
-                    {index + 1}. {test.name}{" "}
-                  </p>
-                  <div>
-                    <p>{test.price}</p>
-                  </div>
-                </div>
-              ))}
-              <div className="flex flex-col justify-between w-full md:w-4/5 mx-auto space-y-2">
-                <div className="bg-blue-800 w-full py-[1px] mt-6"></div>
-                <div className="flex justify-between font-bold w-full pr-4">
-                  Total:
-                  <p>{totalPrice}</p>
-                </div>
-                <div className="flex justify-between space-x-4 font-bold">
-                  Discount:{" "}
-                  <input
-                    value={discount}
-                    type="number"
-                    className="text-right w-20"
-                    onChange={(e) => setDiscount(e.target.value)}
-                  />
-                </div>
-                <div className="flex justify-between text-xl">
-                  Price After Discount:
-                  <p className="w-20 text-right pr-4 bg-blue-500 text-white font-bold">{totalPayable}</p>
-                </div>
-                <div className="flex justify-between">
-                  Paid:{" "}
-                  <input
-                    value={paid}
-                    type="number"
-                    className="text-right w-20"
-                    onChange={(e) => setPaid(e.target.value)}
-                  />
-                </div>
-                <div className="flex justify-between font-bold">
-                  Due:
-                  <p className="w-20 bg-red-500 text-white text-right pr-4 my-2">
-                    {parseFloat(totalPayable) - parseFloat(paid)}
-                  </p>
-                </div>
-              </div>
-              <button type="submit" className="px-8 py-4 text-lg w-full text-center text-white font-bold bg-indigo-500">
-                Create Invoice
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
+      {patientDataModal && (
+        <PatientData onClose={() => navigate("/")} onNext={displayTestList} onChange={handlePatientData} />
+      )}
+      {testListModal && (
+        <TestList
+          list={testList}
+          onClose={() => navigate("/")}
+          onNext={displayInvoiceDetails}
+          onChange={handleTestList}
+        />
+      )}
+      {invoiceDetails && (
+        <InvoiceDetails
+          data={patientData}
+          checkedList={checkedTest}
+          amount={amount}
+          onDiscount={handleDiscount}
+          onAdjustment={handleAdjustment}
+          onPay={handlePay}
+        />
+      )}
     </section>
   )
 }
