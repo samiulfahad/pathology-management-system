@@ -8,6 +8,7 @@ import PaymentsIcon from "@mui/icons-material/Payments"
 import LocalShippingIcon from "@mui/icons-material/LocalShipping"
 import CableIcon from '@mui/icons-material/Cable';
 import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
+import SmsIcon from '@mui/icons-material/Sms';
 
 const Layout = (props) => {
   return (
@@ -16,11 +17,8 @@ const Layout = (props) => {
         <div className="bg-indigo-500 fixed top-0 left-0 hidden md:flex flex-wrap  h-screen w-80 text-center text-white font-bold flex-col space-y-4 pt-12">
           <Link to={"/"} className="pt-4 pb-8 text-2xl font-bold">Lab Manager</Link>
 
-          {/* <NavLink to={"/"} className="nav-btn">
-            {" "}
-            <HomeIcon /> Home
-          </NavLink> */}
-          <NavLink to={"/overview"} className="nav-btn">
+         
+          <NavLink to={"/"} className="nav-btn">
             {" "}
             <BorderAllIcon /> Overview
           </NavLink>
@@ -32,9 +30,13 @@ const Layout = (props) => {
             {" "}
             <CloudUploadIcon /> Upload Report
           </NavLink>
-          <NavLink to={"/collect-payment"} className="nav-btn">
+          {/* <NavLink to={"/collect-payment"} className="nav-btn">
             {" "}
             <PaymentsIcon /> Collect Payment
+          </NavLink> */}
+          <NavLink to={"/send-sms"} className="nav-btn">
+            {" "}
+            <SmsIcon /> Send SMS
           </NavLink>
           <NavLink to={"/deliver-report"} className="nav-btn">
             {" "}
@@ -46,7 +48,7 @@ const Layout = (props) => {
           </NavLink>
           <NavLink to={"/manage-profile"} className="nav-btn">
             {" "}
-            <SettingsApplicationsIcon /> Manage Profile
+             Manage Account
           </NavLink>
         </div>
       </div>

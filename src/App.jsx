@@ -12,6 +12,7 @@ import CollectPayment from "./pages/collect-payment"
 import Overview from "./pages/overview"
 import DeliverReport from "./pages/deliver-report"
 import References from "./pages/references"
+import SendSMS from "./pages/send-sms"
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/create-invoice" element={<CreateInvoice />} />
         <Route path="/collect-payment" element={<CollectPayment />} />
         <Route path="/deliver-report" element={<DeliverReport />} />
+        <Route path="/send-sms" element={<SendSMS />} />
         <Route path="/references" element={<References />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
