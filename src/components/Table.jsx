@@ -39,7 +39,7 @@ const Table = ({ columns, data }) => {
                           </Link> */}
                         </>
                       ) : (
-                        <Link to={`/generate/${row[0]}`} className="btn-sm !bg-blue-500 !border-blue-500">
+                        <Link to={`/upload/cbc/${row[0]}`} className="btn-sm !bg-blue-500 !border-blue-500">
                           Generate
                         </Link>
                       )}

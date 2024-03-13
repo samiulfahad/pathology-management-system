@@ -6,8 +6,8 @@ import Table from "../../components/Table"
 const Reports = () => {
   const { testName } = useParams()
   const navigate = useNavigate()
-  const testList = ["cbc", "rbs", "lipid profile", "xray"]
-  const isValidTest = testList.includes(testName.toLowerCase())
+  const testList = ["CBC", "CBC2", "RBS", "XRAY", "ECG", "ULTRA", "RBS2", "XRAY2", "ECG2", "ULTRA2"]
+  const isValidTest = testList.includes(testName)
 
   useEffect(() => {
     if (!isValidTest) {
@@ -20,14 +20,15 @@ const Reports = () => {
     ["018276td45", "Samiul Fahad", false],
     ["018276td45", "Ratul", false],
     ["018276td45", "Sharukh", true],
-    ["018276td45", "Mithun", true],
+    ["018276td45", "Mithunnn", true],
   ]
-
+  
   return (
     <section>
       <div className="flex flex-col justify-between items-center w-full md:w-4/5 mx-auto mt-10 gap-4">
         <div className="text-xl font-bold mx-auto text-center"> Manage All {testName.toUpperCase()} Reports</div>
         <div className="w-full md:w-4/5">
+
           <Table columns={columns} data={data} />
         </div>
       </div>

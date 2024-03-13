@@ -97,7 +97,7 @@ const InvoiceDetails = (props) => {
             <button className="bg-blue-500 text-white py-3 px-8 rounded-lg text-lg font-bold mr-4 hover:bg-blue-600  transition duration-300 ease-in-out">
               Create Invoice
             </button>
-            <button className="border-2 border-blue-500 text-blue-500 py-3 px-8 rounded-lg text-lg font-bold hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 transition duration-300 ease-in-out">
+            <button className="border-2 border-blue-500 text-blue-500 py-3 px-8 rounded-lg text-lg font-bold hover:bg-blue-100 transition duration-300 ease-in-out">
               Cancel
             </button>
           </div>

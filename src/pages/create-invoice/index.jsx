@@ -34,7 +34,7 @@ const CreateInvoice = () => {
   const n = amount.netAmount
   const p = amount.paid
   useEffect(() => {
-    setAmount({ ...amount, due: amount.netAmount - amount.paid })
+    setAmount({ ...amount, due: parseFloat(amount.netAmount) - parseFloat(amount.paid) })
   }, [n, p])
 
   const handlePatientData = (e) => {
@@ -80,7 +80,7 @@ const CreateInvoice = () => {
   }
 
   const handlePay = (paid) => {
-    const paidAmount = parseFloat(paid)
+    const paidAmount = parseFloat(paid || 0)
     const due = amount.netAmount - paidAmount
     setAmount({ ...amount, paid: paidAmount, due })
   }

@@ -13,6 +13,7 @@ import Overview from "./pages/overview"
 import DeliverReport from "./pages/deliver-report"
 import References from "./pages/references"
 import SendSMS from "./pages/send-sms"
+import ReportUploadForm from "./pages/upload-report/forms"
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
         <Route path="/invoice-datails" element={<InvoiceDetails />} />
         <Route path="/upload-report" element={<TestList />} />
         <Route path="/upload-report/:testName" element={<Reports />} />
+        <Route path="/upload/:testName/:id" element={<ReportUploadForm />} />
         <Route path="/create-invoice" element={<CreateInvoice />} />
         <Route path="/collect-payment" element={<CollectPayment />} />
         <Route path="/deliver-report" element={<DeliverReport />} />
