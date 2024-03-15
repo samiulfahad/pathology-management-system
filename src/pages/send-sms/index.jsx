@@ -28,11 +28,11 @@ const SendSMS = () => {
 
   const TABLE_HEAD = ["Invoice ID", "Name", "Action", "Details"]
   return (
-    <section>
-      <div className="w-80 mx-auto">
+    <section className="bg-blue-gray-200 h-screen">
+      <div className="w-80 mx-auto py-4">
         <Search onSearch={onSearch} />
       </div>
-      <table className="w-full mx-auto bg-indigo-50 min-w-max table-auto text-left md:w-2/3 md:mt-6">
+      <table className="w-full mx-auto bg-indigo-50 min-w-max table-auto text-left md:w-2/3">
         <thead>
           <tr>
             {TABLE_HEAD.map((head) => (

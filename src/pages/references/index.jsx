@@ -4,6 +4,9 @@ import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { useState } from "react"
 import Modal from "../../components/Modal"
 import Form from "./Form"
+import { useDispatch, useSelector } from "react-redux"
+import { setKeyword } from "../../store/searchSlice"
+import Search from "../../components/Search"
 
 const TABLE_HEAD = ["Name", "Degree", "Action"]
 const TABLE_ROWS = [
@@ -44,6 +47,8 @@ const References = () => {
   const [data, setData] = useState(TABLE_ROWS)
   const [formData, setFormData] = useState(initialFormData)
   const [mode, setMode] = useState(null) // Introduce mode state
+  const search = useSelector((state) => state.search)
+  const dispatch = useDispatch()
 
   const handleModeChange = (mode, doc = null) => {
     setMode(mode)
@@ -82,8 +87,15 @@ const References = () => {
     setData(updated)
   }
 
+  const onSearch = () => {
+    // Add logic to handle search based on searchKeyword and searchType
+    console.log("Search keyword:", search.keyword)
+    console.log("Search type:", search.type)
+    dispatch(setKeyword(""))
+  }
+
   return (
-    <section className="min-w-max">
+    <section className="min-w-max min-h-screen bg-blue-gray-200">
       {mode && (
         <Modal
           onClose={() => handleModeChange(null)}
@@ -95,7 +107,10 @@ const References = () => {
         </Modal>
       )}
 
-      <div className="flex w-full justify-center items-center mt-10">
+      <div className="w-80 mx-auto py-4">
+        <Search onSearch={onSearch} />
+      </div>
+      <div className="flex w-full justify-center items-center">
         <button
           onClick={() => handleModeChange("add")}
           className="text-lg px-6 py-2 font-bold text-white bg-indigo-500"

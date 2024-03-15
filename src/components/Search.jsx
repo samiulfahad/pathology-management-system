@@ -64,7 +64,7 @@ const Search = ({ onSearch }) => {
         onChange={handleSearchKeyword}
         onKeyDown={handleKeyDown}
         placeholder="Search keyword..."
-        className="flex-1 border border-gray-300 rounded-r-none py-2 px-4 focus:outline-none h-full"
+        className="flex-1 border border-gray-300 rounded-r-none py-[8.5px] px-4 focus:outline-none h-full"
       />
 
       {/* Search button */}

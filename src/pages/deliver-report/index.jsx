@@ -4,6 +4,9 @@ import { useState } from "react"
 import { Card } from "@material-tailwind/react"
 import Modal from "../../components/Modal"
 import PaymentForm from "./PaymentForm"
+import { useDispatch, useSelector } from "react-redux"
+import { setKeyword } from "../../store/searchSlice"
+import Search from "../../components/Search"
 
 const TABLE_HEAD = ["Invoice ID", "Name", "Payment", "Status", "Reports", "Delivery"]
 const TABLE_ROWS = [
@@ -22,6 +25,8 @@ const DeliverReport = () => {
   const [due, setDue] = useState(0)
   const [enteredAmount, setEnteredAmount] = useState(0)
   const [invoiceId, setInvoiceId] = useState(null)
+  const search = useSelector((state) => state.search)
+  const dispatch = useDispatch()
 
   const handleDelivery = (id) => {
     const updated = data.map((item) => {
@@ -74,8 +79,17 @@ const DeliverReport = () => {
     clearState()
   }
 
+  const onSearch = () => {
+    // Add logic to handle search based on searchKeyword and searchType
+    console.log("Search keyword:", search.keyword)
+    console.log("Search type:", search.type)
+    dispatch(setKeyword(""))
+  }
+
   return (
-    <Card className="h-full w-full overflow-scroll">
+    // overflow-scroll
+    <section className="bg-blue-gray-200">
+    <Card className="min-h-screen w-full bg-blue-gray-200">
       {modal && (
         <Modal onClose={closeModal} title="Collect Payment" actionText="Collect Payment" onSubmit={handleSubmit}>
           <PaymentForm
@@ -87,7 +101,10 @@ const DeliverReport = () => {
           />
         </Modal>
       )}
-      <table className="mx-auto bg-indigo-50 min-w-max table-auto text-left md:w-2/3 md:mt-20">
+      <div className="w-80 mx-auto py-4">
+        <Search onSearch={onSearch} />
+      </div>
+      <table className="mx-auto bg-indigo-50 min-w-max table-auto text-left md:w-2/3">
         <thead>
           <tr>
             {TABLE_HEAD.map((head) => (
@@ -121,6 +138,7 @@ const DeliverReport = () => {
         <Pagination />
       </div>
     </Card>
+    </section>
   )
 }
 

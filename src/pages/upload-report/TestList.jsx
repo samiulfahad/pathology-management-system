@@ -16,7 +16,7 @@ const TestList = () => {
     { name: "ULTRA2", completed: 30, uncompleted: 23 }
   ]
   return (
-    <div className="flex flex-wrap gap-4 justify-center items-center w-full h-screen content-center bg-gray-200">
+    <div className="flex flex-wrap gap-4 justify-center items-center w-full h-screen content-center bg-blue-gray-200">
       {testList.map((item) => (
         <Test key={item.name} name={item.name} completed={10} uncompleted={2} />
       ))}

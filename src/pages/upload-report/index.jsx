@@ -41,12 +41,12 @@ const Reports = () => {
   ]
 
   return (
-    <section>
-      <div className="w-80 mx-auto">
+    <section className="bg-blue-gray-200 min-h-screen">
+      <div className="w-80 mx-auto py-4">
+        <div className="text-xl py-4 font-bold mx-auto text-center"> Manage All {testName.toUpperCase()} Reports</div>
         <Search onSearch={onSearch} />
       </div>
-      <div className="flex flex-col justify-between items-center w-full md:w-4/5 mx-auto mt-10 gap-4">
-        <div className="text-xl font-bold mx-auto text-center"> Manage All {testName.toUpperCase()} Reports</div>
+      <div className="flex flex-col justify-between items-center w-full md:w-4/5 mx-auto gap-4">
         <div className="w-full md:w-4/5">
           <Table columns={columns} data={data} testName={testName} />
         </div>
