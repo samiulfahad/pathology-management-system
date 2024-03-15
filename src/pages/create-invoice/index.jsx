@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react"
-import PatientData from "./PatientData"
-import TestList from "./TestList"
-import InvoiceDetails from "./InvoiceDetails"
-import { useNavigate } from "react-router-dom"
+import TestList from "./TestList2"
+import InvoiceSummary from "./InvoiceSummary"
+import PatientData2 from "./PatientData2"
 
 const testList = [
   { name: "Blood Test 1", price: 300 },
@@ -14,35 +13,39 @@ const testList = [
 ]
 
 const CreateInvoice = () => {
-  const initialPatientData = { name: "", age: "", contact: "", referredBy: "" }
-  const navigate = useNavigate()
-  const [patientData, setPatientData] = useState(initialPatientData)
-  const [patientDataModal, setPatientDataModal] = useState(true)
-  const [testListModal, setTestListModal] = useState(false)
-  const [invoiceDetails, setInvoiceDetails] = useState(false)
   const [checkedTest, setCheckedTest] = useState([])
-  const [amount, setAmount] = useState({
+  const [invoiceData, setInvoiceData] = useState({
     total: 0,
     discount: 0,
     afterDiscount: 0,
     adjustment: 0,
     netAmount: 0,
     paid: 0,
-    due: 0,
   })
+  const [patientData, setPatientData] = useState({ name: "", age: "", contact: "", referredBy: "" })
 
-  const n = amount.netAmount
-  const p = amount.paid
+  const { discount, adjustment, paid } = invoiceData
+
   useEffect(() => {
-    setAmount({ ...amount, due: parseFloat(amount.netAmount) - parseFloat(amount.paid) })
-  }, [n, p])
+    let totalAmount = 0
+    checkedTest.forEach((item) => {
+      totalAmount = totalAmount + item.price
+    })
 
-  const handlePatientData = (e) => {
-    const { name, value } = e.target
-    setPatientData({ ...patientData, [name]: value })
-  }
+    const priceAfterDiscount = totalAmount - (discount * totalAmount) / 100
+    const netAmountPrice = priceAfterDiscount - adjustment
+    setInvoiceData((prevState) => ({
+      ...prevState,
+      total: totalAmount,
+      afterDiscount: priceAfterDiscount,
+      adjustment: adjustment,
+      netAmount: netAmountPrice,
+    }))
 
-  const handleTestList = (test) => {
+    console.log(invoiceData)
+  }, [discount, adjustment, paid, checkedTest])
+
+  const handleCheckedTest = (test) => {
     if (!checkedTest.some((item) => item.name === test.name)) {
       setCheckedTest([...checkedTest, test])
     } else {
@@ -50,64 +53,46 @@ const CreateInvoice = () => {
       setCheckedTest(updated)
     }
   }
-
-  const displayTestList = () => {
-    setPatientDataModal(false)
-    setInvoiceDetails(false)
-    setTestListModal(true)
+  const handleDiscount = (value) => {
+    setInvoiceData({ ...invoiceData, discount: value })
   }
 
-  const displayInvoiceDetails = () => {
-    setPatientDataModal(false)
-    setTestListModal(false)
-
-    const total = checkedTest.reduce((acc, item) => acc + item.price, 0)
-    setAmount({ ...amount, total, afterDiscount: total, netAmount: total })
-
-    setInvoiceDetails(true)
+  const handleAdjustment = (value) => {
+    setInvoiceData({ ...invoiceData, adjustment: parseFloat(value) })
   }
 
-  const handleDiscount = (d) => {
-    const discount = parseFloat(d || 0)
-    const afterDiscount = amount.total - amount.total * (discount / 100)
-    setAmount({ ...amount, discount, afterDiscount, netAmount: afterDiscount })
+  const handlePayment = (value) => {
+    setInvoiceData({ ...invoiceData, paid: value })
   }
 
-  const handleAdjustment = (a) => {
-    const adjustment = parseFloat(a || 0)
-    const netAmount = amount.afterDiscount - adjustment
-    setAmount({ ...amount, adjustment, netAmount })
-  }
-
-  const handlePay = (paid) => {
-    const paidAmount = parseFloat(paid || 0)
-    const due = amount.netAmount - paidAmount
-    setAmount({ ...amount, paid: paidAmount, due })
+  const handlePatientData = (e) => {
+    const { name, value } = e.target
+    setPatientData({ ...patientData, [name]: value })
+    console.log(patientData);
   }
 
   return (
-    <section className="py-16 bg-stone-100 font-poppins dark:bg-gray-800">
-      {patientDataModal && (
-        <PatientData onClose={() => navigate("/")} onNext={displayTestList} onChange={handlePatientData} />
-      )}
-      {testListModal && (
-        <TestList
-          list={testList}
-          onClose={() => navigate("/")}
-          onNext={displayInvoiceDetails}
-          onChange={handleTestList}
-        />
-      )}
-      {invoiceDetails && (
-        <InvoiceDetails
-          data={patientData}
-          checkedList={checkedTest}
-          amount={amount}
+    <section className="w-full mx-auto">
+      <div className="w-1/2 mx-auto">
+        <PatientData2 data={patientData} onChange={handlePatientData} />
+      </div>
+
+      <div className="w-1/2 mx-auto py-12">
+        <TestList list={testList} onChange={handleCheckedTest} />
+      </div>
+
+      <div className="w-1/2 mx-auto">
+        <InvoiceSummary
+          data={invoiceData}
+          onPay={handlePayment}
           onDiscount={handleDiscount}
           onAdjustment={handleAdjustment}
-          onPay={handlePay}
         />
-      )}
+      </div>
+      <div className="w-1/2 mx-auto py-10 flex gap-10">
+        <button className="btn">Create Invoice</button>
+        <button className="btn">Cancel</button>
+      </div>
     </section>
   )
 }

@@ -10,36 +10,11 @@ import Search from "../../components/Search"
 
 const TABLE_HEAD = ["Name", "Degree", "Action"]
 const TABLE_ROWS = [
-  {
-    id: 123,
-    name: "John",
-    degree: "MBBS",
-    contact: 65465456,
-  },
-  {
-    id: 124,
-    name: "Mike",
-    degree: "FCPS, MBBS",
-    contact: 6655,
-  },
-  {
-    id: 125,
-    name: "Milton",
-    degree: "ENT Specialist",
-    contact: 6655667,
-  },
-  {
-    id: 127,
-    name: "Jim",
-    degree: "MBBS",
-    contact: 665578923,
-  },
-  {
-    id: 128,
-    name: "Fahim",
-    degree: "Cardiologist",
-    contact: 665566065,
-  },
+  { id: 123, name: "John", degree: "MBBS", contact: 65465456 },
+  { id: 124, name: "Mike", degree: "FCPS, MBBS", contact: 6655 },
+  { id: 125, name: "Milton", degree: "ENT Specialist", contact: 6655667 },
+  { id: 127, name: "Jim", degree: "MBBS", contact: 665578923 },
+  { id: 128, name: "Fahim", degree: "Cardiologist", contact: 665566065 },
 ]
 
 const References = () => {
