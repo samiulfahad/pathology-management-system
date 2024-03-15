@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
-const Table = ({ columns, data }) => {
+const Table = ({ columns, data, testName }) => {
   return (
     <section className="w-full flex items-center bg-gray-50 font-poppins">
       <div className="justify-center  flex-1 px-4 py-4 mx-auto lg:py-8 md:px-6">
@@ -39,7 +39,7 @@ const Table = ({ columns, data }) => {
                           </Link> */}
                         </>
                       ) : (
-                        <Link to={`/upload/cbc/${row[0]}`} className="btn-sm !bg-blue-500 !border-blue-500">
+                        <Link to={`/upload/${testName}/${row[0]}`} className="btn-sm !bg-blue-500 !border-blue-500">
                           Generate
                         </Link>
                       )}

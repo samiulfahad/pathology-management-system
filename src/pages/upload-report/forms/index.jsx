@@ -6,9 +6,9 @@ const index = () => {
   const {testName, id} = useParams()
   console.log(testName, id);
   return (
-    <section className="w-2/3 mx-auto">
-      {testName === "cbc" ? <CBC/> : null}
-      {testName === "rbs" ? <RBS/> : null}
+    <section className="">
+      {testName === "CBC" ? <CBC/> : null}
+      {testName === "RBS" ? <RBS/> : null}
     </section>
   )
 }
