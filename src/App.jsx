@@ -14,6 +14,7 @@ import DeliverReport from "./pages/deliver-report"
 import References from "./pages/references"
 import SendSMS from "./pages/send-sms"
 import ReportUploadForm from "./pages/upload-report/forms"
+import PriceList from "./pages/price-list"
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/collect-payment" element={<CollectPayment />} />
         <Route path="/deliver-report" element={<DeliverReport />} />
         <Route path="/send-sms" element={<SendSMS />} />
+        <Route path="/price-list" element={<PriceList />} />
         <Route path="/references" element={<References />} />
         <Route path="*" element={<Page404 />} />
       </Routes>

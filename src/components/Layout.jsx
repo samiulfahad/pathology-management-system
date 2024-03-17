@@ -42,6 +42,11 @@ const Layout = (props) => {
             {" "}
             <LocalShippingIcon /> Deliver Report
           </NavLink>
+          <NavLink to={"/price-list"} className="nav-btn">
+            {" "}
+            <CableIcon /> Price List
+          </NavLink>
+          
           <NavLink to={"/references"} className="nav-btn">
             {" "}
             <CableIcon /> References

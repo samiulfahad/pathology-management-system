@@ -55,7 +55,7 @@ const InvoiceSummary = (props) => {
             type="number"
             className="p-1 border w-20 text-right border-gray-300 rounded-md mr-2"
             value={paid}
-            onChange={(e) => props.onPay(parseFloat(e.target.value)||0)}
+            onChange={(e) => props.onPay(parseFloat(e.target.value) || 0)}
           />
           <span>BDT</span>
         </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
-import PatientData from "./PatientData"
-import TestList from "./TestList"
+import PatientData from "../PatientData"
+import TestList from "../TestList"
 import InvoiceDetails from "./InvoiceDetails"
 import { useNavigate } from "react-router-dom"
 

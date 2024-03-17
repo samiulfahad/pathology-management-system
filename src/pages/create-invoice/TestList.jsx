@@ -1,18 +1,15 @@
 import { Checkbox } from "@material-tailwind/react"
-import Modal from "../../components/Modal"
-import React from "react"
 
-const TestList = (props) => {
-
-
+const TestList = ({ list, onChange }) => {
   return (
-    <Modal title="Select Tests" onClose={props.onClose} onSubmit={props.onNext} actionText="Next">
+    <>
+      <h2 className="w-full mx-auto text-left text-2xl">Select Test(s)</h2>
       <div className="flex flex-wrap justify-start items-center">
-        {props.list.map((test) => (
-          <Checkbox key={test.name} label={test.name} value={test.name} onChange={() => props.onChange(test)} />
+        {list.map((test) => (
+          <Checkbox key={test.name} label={test.name} value={test.name} onChange={() => onChange(test)} />
         ))}
       </div>
-    </Modal>
+    </>
   )
 }
 
