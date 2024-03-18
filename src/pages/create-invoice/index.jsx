@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import TestList from "./TestList2"
+import TestList from "./TestList"
 import InvoiceSummary from "./InvoiceSummary"
-import PatientData2 from "./PatientData2"
+import PatientData from "./PatientData"
 import ErrorModal from "../../components/ErrorModal"
 
 const testList = [
@@ -29,7 +29,6 @@ const CreateInvoice = () => {
 
   const { discount, adjustment, paid } = invoiceData
   const [state, setState] = useState(null)
-  const [errorModal, setErrorModal] = useState(false)
 
   useEffect(() => {
     let totalAmount = 0
@@ -93,7 +92,7 @@ const CreateInvoice = () => {
         netAmount: invoiceData.netAmount,
         paid: invoiceData.paid,
       }
-      const response = await axios.post("http://localhost:3000/api/invoice/create", data)
+      const response = await axios.post("http://localhost:3000/api/v1/invoice/create", data)
       if (response.data.success) {
         console.log("data added")
         console.log(response.data)
@@ -111,7 +110,7 @@ const CreateInvoice = () => {
       {state=="error" && <ErrorModal title="Please select test" onClose={closeModal} /> }
       <form onSubmit={handleSubmit}>
         <div className="w-1/2 mx-auto">
-          <PatientData2 data={patientData} onChange={handlePatientData} />
+          <PatientData data={patientData} onChange={handlePatientData} />
         </div>
 
         <div className="w-1/2 mx-auto py-12">
