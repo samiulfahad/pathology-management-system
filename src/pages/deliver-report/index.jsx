@@ -20,13 +20,12 @@ const DeliverReport = () => {
   const [due, setDue] = useState(0)
   const [enteredAmount, setEnteredAmount] = useState(0)
   const [invoiceId, setInvoiceId] = useState(null)
-  const [state, setState] = useState(null)
+  const [state, setState] = useState("fetchingData")
 
   const search = useSelector((state) => state.search)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    setState("fetchingData")
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:3000/api/v1/invoice/all")
@@ -38,18 +37,17 @@ const DeliverReport = () => {
         console.log(e)
       }
     }
-    setTimeout(fetchData, 5000)
+    setTimeout(fetchData, 500)
   }, [])
 
-  const handleDelivery = (invoiceId) => {
-    const updated = data.map((item) => {
-      if (item.invoiceId === invoiceId) {
-        item.delivered = !item.delivered
-        return item
-      }
-      return item
+  const handleDelivery = async (invoiceId) => {
+    const test = data.filter((item) => item.invoiceId === invoiceId)[0]
+    const response = await axios.put("http://localhost:3000/api/v1/invoice/delivered", {
+      invoiceId,
+      delivered: test.delivered,
     })
-    setData(updated)
+    console.log(response.data)
+    // setData(response.data)
   }
 
   const openModal = (invoiceId, netAmount, paid) => {

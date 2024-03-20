@@ -6,6 +6,7 @@ import { Link } from "react-router-dom"
 const TableRow = (props) => {
   const { invoiceId, name, netAmount, paid, completed, delivered, onDelivery, onCollect, classes } = props.input
 
+  
   let payment =
     parseFloat(netAmount) === parseFloat(paid) ? (
       <p className="font-bold text-green-500">
