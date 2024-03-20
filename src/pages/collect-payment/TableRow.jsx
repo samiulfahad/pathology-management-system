@@ -1,8 +1,8 @@
-const TableRow = ({ id, name, totalAmount, paid, classes, onCollect }) => {
+const TableRow = ({ invoiceId, name, netAmount, paid, classes, onCollect }) => {
   const action =
-    totalAmount - paid > 0 ? (
+    netAmount - paid > 0 ? (
       <button
-        onClick={() => onCollect(id)}
+        onClick={() => onCollect(invoiceId)}
         className="px-4 py-2 bg-orange-600 hover:bg-gray-400 text-white font-bold rounded-md transition duration-300"
       >
         Collect
@@ -13,15 +13,15 @@ const TableRow = ({ id, name, totalAmount, paid, classes, onCollect }) => {
 
   return (
     <>
-      <tr key={id}>
-        <td className={classes}>{id}</td>
+      <tr key={invoiceId}>
+        <td className={classes}>{invoiceId}</td>
         <td className={classes}>{name}</td>
-        <td className={classes + " text-xl "}>৳{totalAmount}</td>
+        <td className={classes + " text-xl "}>৳{netAmount}</td>
         <td className={classes}>
           <div className="flex flex-col justify-center items-start">
             <div className="flex flex-col">
               <p className="text-sm">Paid - ৳{paid}</p>
-              <p className="text-sm font-bold text-red-600">Due - ৳{totalAmount - paid}</p>
+              <p className="text-sm font-bold text-red-600">Due - ৳{netAmount - paid}</p>
             </div>
           </div>
         </td>

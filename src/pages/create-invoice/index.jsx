@@ -9,8 +9,8 @@ const testList = [
   { name: "Blood Test 1", price: 300 },
   { name: "Blood Test 2", price: 300 },
   { name: "Blood Test 3", price: 300 },
-  { name: "RBS", price: 200 },
-  { name: "XRay", price: 350 },
+  { name: "CBC", price: 200 },
+  { name: "RBC", price: 350 },
   { name: "ECG", price: 200 },
 ]
 
@@ -98,7 +98,7 @@ const CreateInvoice = () => {
         console.log(response.data)
       }
     } catch (e) {
-      console.log(e)
+      console.log(e.response.data)
     }
   }
   const closeModal = () => {

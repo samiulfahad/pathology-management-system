@@ -87,17 +87,17 @@ const CollectPayment = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map(({ id, name, totalAmount, paid }, index) => {
+          {data.map(({ invoiceId, name, netAmount, paid }, index) => {
             const isLast = index === TABLE_ROWS.length - 1
             const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-500"
 
             return (
               <TableRow
-                key={id}
-                id={id}
+                key={invoiceId}
+                id={invoiceId}
                 name={name}
                 onCollect={handleCollect}
-                totalAmount={totalAmount}
+                totalAmount={netAmount}
                 paid={paid}
                 classes={classes}
               />

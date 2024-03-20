@@ -1,5 +1,6 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import Loading from "../../components/Loading"
 
 import { setKeyword } from "../../store/searchSlice"
 import TableRow from "./TableRow"
@@ -16,6 +17,23 @@ const data = [
 const SendSMS = () => {
   const search = useSelector((state) => state.search)
   const dispatch = useDispatch()
+  const [state, setState] = useState(null)
+
+  useEffect(() => {
+    setState("fetchingData")
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/v1/invoice/all")
+        console.log(response.data)
+        setData(response.data.invoices)
+        setState(null)
+      } catch (e) {
+        setState("fetchingDataError")
+        console.log(e)
+      }
+    }
+    setTimeout(fetchData, 5000)
+  }, [])
 
   const onSearch = () => {
     // Add logic to handle search based on searchKeyword and searchType
@@ -28,6 +46,10 @@ const SendSMS = () => {
 
   const TABLE_HEAD = ["Invoice ID", "Name", "Action", "Details"]
   return (
+    <>
+     {state === "fetchingData" ? (
+        <Loading title="Loading Data..." />
+      ) : (
     <section className="bg-blue-gray-200 h-screen">
       <div className="w-80 mx-auto py-4">
         <Search onSearch={onSearch} />
@@ -52,6 +74,8 @@ const SendSMS = () => {
         </tbody>
       </table>
     </section>
+    )}
+    </>
   )
 }
 
