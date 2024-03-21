@@ -25,7 +25,7 @@ const SendSMS = () => {
         console.log(e)
       }
     }
-    setTimeout(fetchData, 5000)
+    setTimeout(fetchData, 500)
   }, [])
 
   const onSearch = () => {
@@ -35,10 +35,25 @@ const SendSMS = () => {
     dispatch(setKeyword(""))
   }
 
-  const onSendSMS = async (invoiceId) => {
-    const response = await axios.put("http://localhost:3000/api/v1/invoice/notify-patient", { invoiceId })
-    console.log(response.data.success)
-    console.log(44444444444444)
+  const handleSendSMS = async (_id) => {
+    try {
+      const response = await axios.put("http://localhost:3000/api/v1/invoice/update", {
+        _id,
+        update: "notified",
+      })
+      if (response && response.data && response.data.success) {
+        const updatedData = data.map((item) => {
+          if (item._id === _id) {
+            return { ...item, notified: true }
+          }
+          return item
+        })
+        setData(updatedData)
+        return true
+      } else {
+        return false
+      }
+    } catch (e) {}
   }
 
   const TABLE_HEAD = ["Invoice ID", "Name", "Action", "Details"]
@@ -62,11 +77,11 @@ const SendSMS = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map(({ invoiceId, name, completed, notified }, index) => {
+              {data.map(({ _id, invoiceId, name, completed, notified }, index) => {
                 const isLast = index === data.length - 1
                 const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-500"
-                const input = { invoiceId, name, completed, notified, classes, onSendSMS }
-                return <TableRow key={invoiceId} input={input} />
+                const input = { _id, invoiceId, name, completed, notified, classes, onSendSMS: handleSendSMS }
+                return <TableRow key={_id} input={input} />
               })}
             </tbody>
           </table>

@@ -1,62 +1,65 @@
 import DoneAllIcon from "@mui/icons-material/DoneAll"
-import RunningWithErrorsIcon from "@mui/icons-material/RunningWithErrors"
-import CircularProgress from "@mui/material/CircularProgress"
 
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import RunningWithErrorsIcon from "@mui/icons-material/RunningWithErrors"
+import ReplayIcon from "@mui/icons-material/Replay"
+
+import LoadingIcon from "../../components/LoadingIcon"
 
 const TableRow = (props) => {
   const [loading, setLoading] = useState(false)
-  const [btnText, setBtnText] = useState("Send SMS")
-  const { invoiceId, name, classes, onSendSMS, completed, notified } = props.input
+  const [failed, setFailed] = useState(false)
+  const { _id, invoiceId, name, classes, onSendSMS, completed, notified } = props.input
 
-  const handleClick = (invoiceId) => {
+  const handleClick = async () => {
     setLoading(true)
-    setBtnText(<CircularProgress size={20} />)
-    setTimeout(() => setBtnText("Done"), 2000)
-    onSendSMS(invoiceId)
+    const success = await onSendSMS(_id)
+    if (success) {
+      setLoading(false)
+      setFailed(false)
+    } else {
+      setFailed(true)
+      setTimeout(() => setLoading(false), 5000)
+    }
   }
 
-  let actionBtn = null
-
-  const successBtn = (
+  const alreadySent = (
     <p className="py-2 text-left rounded-lg text-green-700  font-bold">
       Sent <DoneAllIcon />{" "}
     </p>
   )
 
-  const processingText = (
-    <p className=" py-2 text-center rounded-lg text-red-500 font-bold">
-      Processing <RunningWithErrorsIcon />{" "}
-    </p>
-  )
   const sentSMSButton = (
     <button
       onClick={() => handleClick(invoiceId)}
-      disabled={loading}
+      disabled={notified}
       className="px-4 py-3 text-white font-bold rounded-lg bg-blue-500"
     >
-      {btnText}
+      {failed ? (
+        <p className="text-red-500">
+          Retry <ReplayIcon />
+        </p>
+      ) : (
+        "Send SMS"
+      )}
     </button>
   )
-
-  if (completed && !notified) {
-    actionBtn = sentSMSButton
-  }
-
-  if (completed && notified) {
-    actionBtn = successBtn
-  }
-
-  if (!completed) {
-    actionBtn = processingText
-  }
 
   return (
     <tr key={invoiceId}>
       <td className={classes}>{invoiceId}</td>
       <td className={classes}>{name}</td>
-      <td className={classes + " flex justify-start items-start space-x-8"}>{actionBtn}</td>
+      <td className={classes}>
+        {!loading && completed && notified ? alreadySent : null}
+        {!loading && completed && !notified ? sentSMSButton : null}
+        {loading && <LoadingIcon />}
+        {!loading && !completed && (
+          <p className="text-red-700 font-bold">
+            Not Ready <RunningWithErrorsIcon />
+          </p>
+        )}
+      </td>
       <td className={classes}>
         <Link className="bg-indigo-500 text-white px-2 py-1 rounded-md font-bold"> Details </Link>
       </td>

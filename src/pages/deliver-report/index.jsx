@@ -20,7 +20,7 @@ const DeliverReport = () => {
   const [due, setDue] = useState(0)
   const [enteredAmount, setEnteredAmount] = useState(0)
   const [invoiceId, setInvoiceId] = useState(null)
-  const [state, setState] = useState("fetchingData")
+  const [loadingState, setLoadingState] = useState("fetchingData")
 
   const search = useSelector((state) => state.search)
   const dispatch = useDispatch()
@@ -31,23 +31,34 @@ const DeliverReport = () => {
         const response = await axios.get("http://localhost:3000/api/v1/invoice/all")
         console.log(response.data)
         setData(response.data.invoices)
-        setState(null)
+        setLoadingState(null)
       } catch (e) {
-        setState("fetchingDataError")
+        setLoadingState("fetchingDataError")
         console.log(e)
       }
     }
     setTimeout(fetchData, 500)
   }, [])
 
-  const handleDelivery = async (invoiceId) => {
-    const test = data.filter((item) => item.invoiceId === invoiceId)[0]
-    const response = await axios.put("http://localhost:3000/api/v1/invoice/delivered", {
-      invoiceId,
-      delivered: test.delivered,
-    })
-    console.log(response.data)
-    // setData(response.data)
+  const handleDelivery = async (_id) => {
+    try {
+      const response = await axios.put("http://localhost:3000/api/v1/invoice/update", {
+        _id,
+        update: "delivered",
+      })
+      if (response && response.data && response.data.success) {
+        const updatedData = data.map((item) => {
+          if (item._id === _id) {
+            return { ...item, delivered: true }
+          }
+          return item
+        })
+        setData(updatedData)
+        return true
+      } else {
+        return false
+      }
+    } catch (e) {}
   }
 
   const openModal = (invoiceId, netAmount, paid) => {
@@ -99,7 +110,7 @@ const DeliverReport = () => {
 
   return (
     <>
-      {state === "fetchingData" ? (
+      {loadingState === "fetchingData" ? (
         <Loading title="Loading Data..." />
       ) : (
         // overflow-scroll
@@ -130,10 +141,11 @@ const DeliverReport = () => {
                 </tr>
               </thead>
               <tbody>
-                {data.map(({ invoiceId, name, netAmount, paid, completed, delivered }, index) => {
+                {data.map(({ _id, invoiceId, name, netAmount, paid, completed, delivered }, index) => {
                   const isLast = index === data.length - 1
                   const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-500"
                   const input = {
+                    _id,
                     invoiceId,
                     name,
                     netAmount,
@@ -144,7 +156,7 @@ const DeliverReport = () => {
                     onCollect: openModal,
                     classes,
                   }
-                  return <TableRow key={invoiceId} input={input} />
+                  return <TableRow key={_id} input={input} />
                 })}
               </tbody>
             </table>
