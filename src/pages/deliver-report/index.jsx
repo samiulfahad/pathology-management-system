@@ -19,7 +19,7 @@ const DeliverReport = () => {
   const [paid, setPaid] = useState(0)
   const [due, setDue] = useState(0)
   const [enteredAmount, setEnteredAmount] = useState(0)
-  const [invoiceId, setInvoiceId] = useState(null)
+  const [selectedId, setSelectedId] = useState(null)
   const [loadingState, setLoadingState] = useState("fetchingData")
 
   const search = useSelector((state) => state.search)
@@ -61,18 +61,22 @@ const DeliverReport = () => {
     } catch (e) {}
   }
 
-  const openModal = (invoiceId, netAmount, paid) => {
+  const openPaymentModal = (_id, netAmount, paid) => {
     setTotalAmount(parseFloat(netAmount))
     setPaid(parseFloat(paid))
     setDue(parseFloat(netAmount) - parseFloat(paid))
     setEnteredAmount(netAmount - paid)
-    setInvoiceId(invoiceId)
+    setSelectedId(_id)
     setModal(true)
   }
 
   const handleAmountChange = (e) => {
     const amount = parseFloat(e.target.value || 0)
-    setEnteredAmount(amount)
+    if(amount <= due){
+      setEnteredAmount(amount)
+    } else {
+      setEnteredAmount(due)
+    }
   }
 
   const clearState = () => {
@@ -83,18 +87,27 @@ const DeliverReport = () => {
     setModal(false)
   }
 
-  const handleSubmit = (e) => {
+  const handlePayment = async (e) => {
     e.preventDefault()
-    const updated = data.filter((item) => {
-      if (item.invoiceId === invoiceId) {
-        item.paid = item.paid + enteredAmount
-        console.log(item)
-        return item
+
+    try {
+      const response = await axios.put("http://localhost:3000/api/v1/invoice/update", {
+        _id: selectedId,
+        update: "paid",
+        amount: enteredAmount
+      })
+      if (response && response.data && response.data.success) {
+        const updated = data.filter((item) => {
+          if (item._id === selectedId) {
+            item.paid = item.paid + enteredAmount
+            return item
+          }
+          return item
+        })
+        setData(updated)
+        clearState()
       }
-      return item
-    })
-    setData(updated)
-    clearState()
+    } catch (e) {}
   }
 
   const closeModal = () => {
@@ -117,7 +130,7 @@ const DeliverReport = () => {
         <section className="bg-blue-gray-200">
           <Card className="min-h-screen w-full bg-blue-gray-200">
             {modal && (
-              <Modal onClose={closeModal} title="Collect Payment" actionText="Collect Payment" onSubmit={handleSubmit}>
+              <Modal onClose={closeModal} title="Collect Payment" actionText="Collect Payment" onSubmit={handlePayment}>
                 <PaymentForm
                   netAmount={netAmount}
                   paid={paid}
@@ -153,7 +166,7 @@ const DeliverReport = () => {
                     delivered,
                     completed,
                     onDelivery: handleDelivery,
-                    onCollect: openModal,
+                    onCollect: openPaymentModal,
                     classes,
                   }
                   return <TableRow key={_id} input={input} />
