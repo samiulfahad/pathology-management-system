@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { setKeyword } from "../../store/searchSlice"
 import Search from "../../components/Search"
 import Loading from "../../components/Loading"
+import Layout from "../../components/Layout"
 
 const TABLE_HEAD = ["Invoice ID", "Name", "Payment", "Status", "Reports", "Delivery", "Action"]
 
@@ -122,7 +123,7 @@ const DeliverReport = () => {
   }
 
   return (
-    <>
+    <Layout>
       {loadingState === "fetchingData" ? (
         <Loading title="Loading Data..." />
       ) : (
@@ -179,7 +180,7 @@ const DeliverReport = () => {
           </Card>
         </section>
       )}
-    </>
+    </Layout>
   )
 }
 

@@ -1,3 +1,4 @@
+import Layout from "../../components/Layout"
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import Loading from "../../components/Loading"
@@ -58,7 +59,7 @@ const SendSMS = () => {
 
   const TABLE_HEAD = ["Invoice ID", "Name", "Action", "Details"]
   return (
-    <>
+    <Layout>
       {state === "fetchingData" ? (
         <Loading title="Loading Data..." />
       ) : (
@@ -87,7 +88,7 @@ const SendSMS = () => {
           </table>
         </section>
       )}
-    </>
+    </Layout>
   )
 }
 

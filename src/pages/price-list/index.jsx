@@ -1,4 +1,6 @@
 import React, { useState } from "react"
+
+import Layout from "../../components/Layout"
 import Test from "./Test"
 
 const index = () => {
@@ -19,14 +21,16 @@ const index = () => {
   }
 
   return (
-    <section>
-      <div className="w-full">
-        <p className="text-left ml-40 text-2xl mt-20">Price List of Tests</p>
-        {testList.map((item) => (
-          <Test key={item.testName} testName={item.testName} price={item.price} onPriceChange={handlePriceChange} />
-        ))}
-      </div>
-    </section>
+    <Layout>
+      <section>
+        <div className="w-full">
+          <p className="text-left ml-40 text-2xl mt-20">Price List of Tests</p>
+          {testList.map((item) => (
+            <Test key={item.testName} testName={item.testName} price={item.price} onPriceChange={handlePriceChange} />
+          ))}
+        </div>
+      </section>
+    </Layout>
   )
 }
 

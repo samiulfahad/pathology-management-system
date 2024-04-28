@@ -1,3 +1,4 @@
+import Layout from "../../components/Layout"
 import TableRow from "./TableRow"
 import Pagination from "../../components/Pagination"
 import AddCircleIcon from "@mui/icons-material/AddCircle"
@@ -70,62 +71,64 @@ const References = () => {
   }
 
   return (
-    <section className="min-w-max min-h-screen bg-blue-gray-200">
-      {mode && (
-        <Modal
-          onClose={() => handleModeChange(null)}
-          title={mode === "add" ? "Add New Reference" : "Editing"}
-          actionText={mode === "add" ? "Add" : "Update"}
-          onSubmit={handleSubmit}
-        >
-          <Form onChange={handleChange} data={formData} />
-        </Modal>
-      )}
+    <Layout>
+      <section className="min-w-max min-h-screen bg-blue-gray-200">
+        {mode && (
+          <Modal
+            onClose={() => handleModeChange(null)}
+            title={mode === "add" ? "Add New Reference" : "Editing"}
+            actionText={mode === "add" ? "Add" : "Update"}
+            onSubmit={handleSubmit}
+          >
+            <Form onChange={handleChange} data={formData} />
+          </Modal>
+        )}
 
-      <div className="w-80 mx-auto py-4">
-        <Search onSearch={onSearch} />
-      </div>
-      <div className="flex w-full justify-center items-center">
-        <button
-          onClick={() => handleModeChange("add")}
-          className="text-lg px-6 py-2 font-bold text-white bg-indigo-500"
-        >
-          Add New <AddCircleIcon />{" "}
-        </button>
-      </div>
-      <table className="w-full mx-auto bg-indigo-50 min-w-max table-auto text-left md:w-2/3 md:mt-6">
-        <thead>
-          <tr>
-            {TABLE_HEAD.map((head) => (
-              <th key={head} className="border-b border-blue-gray-500 text-white bg-indigo-500 p-4">
-                {head}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map(({ id, name, degree }, index) => {
-            const isLast = index === data.length - 1
-            const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-500"
+        <div className="w-80 mx-auto py-4">
+          <Search onSearch={onSearch} />
+        </div>
+        <div className="flex w-full justify-center items-center">
+          <button
+            onClick={() => handleModeChange("add")}
+            className="text-lg px-6 py-2 font-bold text-white bg-indigo-500"
+          >
+            Add New <AddCircleIcon />{" "}
+          </button>
+        </div>
+        <table className="w-full mx-auto bg-indigo-50 min-w-max table-auto text-left md:w-2/3 md:mt-6">
+          <thead>
+            <tr>
+              {TABLE_HEAD.map((head) => (
+                <th key={head} className="border-b border-blue-gray-500 text-white bg-indigo-500 p-4">
+                  {head}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.map(({ id, name, degree }, index) => {
+              const isLast = index === data.length - 1
+              const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-500"
 
-            return (
-              <TableRow
-                key={id}
-                id={id}
-                name={name}
-                degree={degree}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-                classes={classes}
-              />
-            )
-          })}
-        </tbody>
-      </table>
-      <div className="w-full md:w-2/3 mx-auto">
-        <Pagination />
-      </div>
-    </section>
+              return (
+                <TableRow
+                  key={id}
+                  id={id}
+                  name={name}
+                  degree={degree}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                  classes={classes}
+                />
+              )
+            })}
+          </tbody>
+        </table>
+        <div className="w-full md:w-2/3 mx-auto">
+          <Pagination />
+        </div>
+      </section>
+    </Layout>
   )
 }
 

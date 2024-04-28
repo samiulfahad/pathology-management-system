@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
+import Layout from "../../../components/Layout"
 import TestList from "./TestList"
 import InvoiceData from "./InvoiceData"
 import PatientData from "./PatientData"
@@ -97,6 +98,7 @@ const CreateInvoice = () => {
   }
 
   return (
+    <Layout>
     <section className="w-full mx-auto">
       {loadingState == "error" && <ErrorModal title="Please select test" onClose={closeModal} />}
       <form onSubmit={handleSubmit}>
@@ -124,6 +126,7 @@ const CreateInvoice = () => {
         </div>
       </form>
     </section>
+    </Layout>
   )
 }
 

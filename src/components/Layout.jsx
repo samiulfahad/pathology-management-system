@@ -12,7 +12,7 @@ import SmsIcon from "@mui/icons-material/Sms"
 
 const Layout = (props) => {
   return (
-    <section className="bg-gray-100 min-h-screen">
+    <section className={`bg-gray-100 ${props.bg} min-h-screen`}>
       <div className="flex justify-start items-center">
         <div className="bg-indigo-500 fixed top-0 left-0 hidden md:flex flex-wrap  h-screen w-80 text-center text-white font-bold flex-col space-y-4 pt-12">
           <Link to={"/"} className="pt-4 pb-8 text-2xl font-bold">
@@ -31,7 +31,7 @@ const Layout = (props) => {
             {" "}
             All Invoices
           </NavLink>
-          <NavLink to={"/invoice/print"} className="nav-btn">
+          <NavLink to={"/print/invoice"} className="nav-btn">
             {" "}
             Print
           </NavLink>

@@ -1,3 +1,5 @@
+import Layout from "../../components/Layout"
+
 import TableRow from "./TableRow"
 import Pagination from "../../components/Pagination"
 import Modal from "../../components/Modal"
@@ -47,7 +49,7 @@ const CollectPayment = () => {
     setModal(true)
     setClickedId(id)
   }
- 
+
   const closeModal = () => {
     setModal(false)
     setDueAmount(0)
@@ -66,49 +68,49 @@ const CollectPayment = () => {
     setModal(false)
   }
 
-  
-
   return (
-    <section className="min-w-max">
-      {modal && (
-        <Modal title="Collect Due Amount" onClose={closeModal} onSubmit={handleSubmit} actionText="Collect">
-          {" "}
-          <Form dueAmount={dueAmount} />{" "}
-        </Modal>
-      )}
-      <table className="w-full mx-auto bg-indigo-50 min-w-max table-auto text-left md:w-2/3 md:mt-20">
-        <thead>
-          <tr>
-            {TABLE_HEAD.map((head) => (
-              <th key={head} className="border-b border-blue-gray-500 text-white bg-indigo-500 p-4">
-                {head}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map(({ invoiceId, name, netAmount, paid }, index) => {
-            const isLast = index === TABLE_ROWS.length - 1
-            const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-500"
+    <Layout>
+      <section className="min-w-max">
+        {modal && (
+          <Modal title="Collect Due Amount" onClose={closeModal} onSubmit={handleSubmit} actionText="Collect">
+            {" "}
+            <Form dueAmount={dueAmount} />{" "}
+          </Modal>
+        )}
+        <table className="w-full mx-auto bg-indigo-50 min-w-max table-auto text-left md:w-2/3 md:mt-20">
+          <thead>
+            <tr>
+              {TABLE_HEAD.map((head) => (
+                <th key={head} className="border-b border-blue-gray-500 text-white bg-indigo-500 p-4">
+                  {head}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {data.map(({ invoiceId, name, netAmount, paid }, index) => {
+              const isLast = index === TABLE_ROWS.length - 1
+              const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-500"
 
-            return (
-              <TableRow
-                key={invoiceId}
-                id={invoiceId}
-                name={name}
-                onCollect={handleCollect}
-                totalAmount={netAmount}
-                paid={paid}
-                classes={classes}
-              />
-            )
-          })}
-        </tbody>
-      </table>
-      <div className="w-full md:w-2/3 mx-auto">
-        <Pagination />
-      </div>
-    </section>
+              return (
+                <TableRow
+                  key={invoiceId}
+                  id={invoiceId}
+                  name={name}
+                  onCollect={handleCollect}
+                  totalAmount={netAmount}
+                  paid={paid}
+                  classes={classes}
+                />
+              )
+            })}
+          </tbody>
+        </table>
+        <div className="w-full md:w-2/3 mx-auto">
+          <Pagination />
+        </div>
+      </section>
+    </Layout>
   )
 }
 

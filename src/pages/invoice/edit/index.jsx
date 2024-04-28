@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import PatientData from "../create/PatientData"
 import { useParams } from "react-router-dom"
+import Layout from "../../../components/Layout"
 
 const index = () => {
   const [data, setData] = useState({
@@ -21,12 +22,14 @@ const index = () => {
   }
 
   return (
-    <div className="w-1/2 mt-20 mx-auto">
-      <PatientData data={data} onChange={handleChange} />
-      <button onClick={handleSubmit} className="btn mt-8 mx-auto text-center w-full">
-        Save
-      </button>
-    </div>
+    <Layout>
+      <div className="w-1/2 mt-20 mx-auto">
+        <PatientData data={data} onChange={handleChange} />
+        <button onClick={handleSubmit} className="btn mt-8 mx-auto text-center w-full">
+          Save
+        </button>
+      </div>
+    </Layout>
   )
 }
 
