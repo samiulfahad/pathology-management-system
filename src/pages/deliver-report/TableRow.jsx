@@ -22,6 +22,10 @@ const TableRow = (props) => {
         <Link className="bg-indigo-500 text-white px-3 py-2 rounded-md font-bold">Reports</Link>
       </td>
       <Delivery _id={_id} delivered={delivered} onDelivery={onDelivery} classes={classes} />
+      <td className={classes}>
+      <Link to={`/invoice/edit/${_id}`} className="bg-indigo-500 text-white px-3 py-2 rounded-md font-bold">Edit</Link>
+
+      </td>
     </tr>
   )
 }

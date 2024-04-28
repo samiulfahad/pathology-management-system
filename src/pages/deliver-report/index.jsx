@@ -10,7 +10,7 @@ import { setKeyword } from "../../store/searchSlice"
 import Search from "../../components/Search"
 import Loading from "../../components/Loading"
 
-const TABLE_HEAD = ["Invoice ID", "Name", "Payment", "Status", "Reports", "Delivery"]
+const TABLE_HEAD = ["Invoice ID", "Name", "Payment", "Status", "Reports", "Delivery", "Action"]
 
 const DeliverReport = () => {
   const [data, setData] = useState([])
