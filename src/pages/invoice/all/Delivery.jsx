@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Switch from "@mui/material/Switch"
 
-import LoadingIcon from "../../components/LoadingIcon"
+import LoadingIcon from "../../../components/LoadingIcon"
 
 const Delivery = ({ _id, delivered, onDelivery, classes }) => {
   const [loading, setLoading] = useState(false)

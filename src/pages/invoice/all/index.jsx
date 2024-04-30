@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import TableRow from "./TableRow"
-import Pagination from "../../components/Pagination"
+import Pagination from "../../../components/Pagination"
 import { Card } from "@material-tailwind/react"
-import Modal from "../../components/Modal"
+import Modal from "../../../components/Modal"
 import PaymentForm from "./PaymentForm"
 import { useDispatch, useSelector } from "react-redux"
-import { setKeyword } from "../../store/searchSlice"
-import Search from "../../components/Search"
-import Loading from "../../components/Loading"
-import Layout from "../../components/Layout"
+import { setKeyword } from "../../../store/searchSlice"
+import Search from "../../../components/Search"
+import Loading from "../../../components/Loading"
+import Layout from "../../../components/Layout"
 
-const TABLE_HEAD = ["Invoice ID", "Name", "Payment", "Status", "Reports", "Delivery", "Action"]
+const TABLE_HEAD = ["Invoice ID", "Name", "Payment", "Delivery", "Action"]
 
 const DeliverReport = () => {
   const [data, setData] = useState([])

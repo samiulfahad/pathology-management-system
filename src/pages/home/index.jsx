@@ -1,53 +1,95 @@
 import React from "react"
-import { Link } from "react-router-dom"
 import Layout from "../../components/Layout"
-import InvoiceList from "../overview"
-import Overview from "../overview"
+import { Option, Select } from "@material-tailwind/react"
+import SaleCard from "./SaleCard"
 
 const Index = () => {
+  const handleDetails = () => {}
+  const months = [
+    {name: "জানুয়ারি", value: 'january'},
+    {name: "ফেব্রুয়ারি", value: 'january'},
+    {name: "মার্চ", value: 'january'},
+    {name: "এপ্রিল", value: 'january'},
+    {name: "মে", value: 'january'},
+    {name: "জুন", value: 'january'},
+    {name: "জুলাই", value: 'january'},
+    {name: "অগাস্ট", value: 'january'},
+    {name: "সেপ্টেম্বর", value: 'january'},
+    {name: "অক্টোবর", value: 'january'},
+    {name: "নভেম্বর", value: 'january'},
+    {name: "ডিসেম্বর", value: 'january'},
+  
+  ]
   return (
-    <Layout>
-      <section className="bg-gray-100 min-h-screen w-full -ml-80">
-        <div className="flex flex-col justify-center items-center mt-16 w-full">
-          {/* Sale Stat */}
-          <h1 className="text-2xl font-bold">Sale Stat</h1>
-          <div className="flex flex-wrap gap-4 justify-start items-center text-md">
-            <div className="px-10 py-4  rounded-md bg-indigo-500 font-bold text-white">
-              <p>Today's Sale</p>
-              <p className="text-2xl">৳252</p>
-            </div>
+    <Layout className="">
+      <section>
+        <div className="w-full px-20 mx-auto mt-20">
+          <div className="flex justify-center item-center gap-8">
+            <SaleCard
+              total={5000}
+              due={2000}
+              received={3000}
+              doctorCommission={1000}
+              onDetails={handleDetails}
+              cardType="daily"
+            />
 
-            <div className="px-10 py-4 rounded-md bg-indigo-500 font-bold text-white">
-              <p>This Month</p>
-              <p className="text-2xl">৳50001</p>
-            </div>
-            <div className="px-10 py-4 rounded-md bg-indigo-500 font-bold text-white">
-              <p>Total Due</p>
-              <p className="text-2xl">৳2820</p>
+            <SaleCard total={200000} due={15000} received={200000-15000} doctorCommission={25000} onDetails={handleDetails} />
+
+            <div className="flex flex-col gap-4 w-60">
+              <p className="font-bold">নির্দিষ্ট মাসের হিসাব</p>
+              <Select label="হিসাবের মাস">
+                {months.map(item => <Option value={item.value}>{item.name}</Option>)}
+              </Select>
+              <Select label="সাল">
+                <Option value="2024">২০২৪</Option>
+                <Option value="2023">২০২৩</Option>
+              </Select>
+              <button className="px-4 py-2 text-white bg-blue-gray-500">হিসাব দেখুন</button>
             </div>
           </div>
-
-          {/* Test stat */}
-          <div className="flex flex-wrap justify-start items-start gap-4 text-md py-4">
-            <div className="px-10 py-4  rounded-md bg-indigo-500 font-bold text-white">
-              <p>Today's Test</p>
-              <p className="text-2xl">52</p>
-            </div>
-
-            <div className="px-10 py-4 rounded-md bg-indigo-500 font-bold text-white">
-              <p>Completed</p>
-              <p className="text-2xl">30</p>
-            </div>
-            <div className="px-10 py-4 rounded-md bg-indigo-500 font-bold text-white">
-              <p>Remaining</p>
-              <p className="text-2xl">22</p>
-            </div>
-          </div>
-
-          {/* <div className="w-full -mt-4">
-            <Overview />
-          </div> */}
         </div>
+        
+        <h2 className="w-full mx-auto text-center text-xl font-bold my-8">আজকের টেস্টের হিসাব</h2>
+        <table className="w-2/3 mx-auto bg-blue-gray-100 px-4 py-6">
+          <thead>
+            <tr className="bg-blue-gray-500 text-white">
+              <th className="p-1 font-semibold text-left pl-6">টেস্টের নাম</th>
+              <th className="p-1 font-semibold text-left">মোট</th>
+              <th className="p-1 font-semibold text-left">Complete</th>
+              <th className="p-1 font-semibold text-left">বাকি</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr className="border-b-2 border-black mb-2">
+              <td className="p-1 font-semibold text-left pl-6">CBC</td>
+              <td className="p-1 font-semibold text-left">10</td>
+              <td className="p-1 font-semibold text-left">10</td>
+              <td className="p-1 font-semibold text-left">0</td>
+            </tr>
+
+            <tr className="border-b-2 border-black mb-2">
+              <td className="p-1 font-semibold text-left pl-6">RBS</td>
+              <td className="p-1 font-semibold text-left">10</td>
+              <td className="p-1 font-semibold text-left">7</td>
+              <td className="p-1 font-semibold text-left">3</td>
+            </tr>
+
+            <tr className="border-b-2 border-black mb-2">
+              <td className="p-1 font-semibold text-left pl-6">Ultra</td>
+              <td className="p-1 font-semibold text-left">5</td>
+              <td className="p-1 font-semibold text-left">3</td>
+              <td className="p-1 font-semibold text-left">2</td>
+            </tr>
+
+            <tr className="border-b-2 border-black mb-2">
+              <td className="p-1 font-semibold text-left pl-6">X-Ray</td>
+              <td className="p-1 font-semibold text-left">12</td>
+              <td className="p-1 font-semibold text-left">8</td>
+              <td className="p-1 font-semibold text-left">4</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
     </Layout>
   )

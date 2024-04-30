@@ -16,15 +16,20 @@ const TableRow = (props) => {
     <tr key={_id}>
       <td className={classes}>{invoiceId}</td>
       <td className={classes}>{name}</td>
-      <Payment netAmount={netAmount} invoiceId={invoiceId} _id={_id} paid={paid} onCollect={onCollect} classes={classes} />
-      <td className={classes}>{status}</td>
-      <td className={classes}>
-        <Link className="bg-indigo-500 text-white px-3 py-2 rounded-md font-bold">Reports</Link>
-      </td>
+      <Payment
+        netAmount={netAmount}
+        invoiceId={invoiceId}
+        _id={_id}
+        paid={paid}
+        onCollect={onCollect}
+        classes={classes}
+      />
+
       <Delivery _id={_id} delivered={delivered} onDelivery={onDelivery} classes={classes} />
       <td className={classes}>
-      <Link to={`/invoice/edit/${_id}`} className="bg-indigo-500 text-white px-3 py-2 rounded-md font-bold">Edit</Link>
-
+        <Link to={`/invoice/edit/${_id}`} className="bg-indigo-500 text-white px-3 py-2 rounded-md font-bold">
+          Edit
+        </Link>
       </td>
     </tr>
   )

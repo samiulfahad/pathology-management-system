@@ -2,7 +2,7 @@ import React from "react"
 
 const PatidentData = () => {
   return (
-    <div className="flex items-center justify-between mb-4">
+    <div className="flex items-center justify-between mb-2">
       <div>
         <p className="text-[14px] text-black">রোগীর নামঃ</p>
         <p className="text-[14px] text-black">বয়সঃ</p>

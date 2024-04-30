@@ -25,3 +25,16 @@
 .active {
     @apply bg-white text-black font-bold
 }
+
+/* In your custom styles */
+@responsive {
+    @media print {
+      button {
+        display: none;
+      }
+      #layout {
+        display: none;
+      }
+    }
+  }
+  

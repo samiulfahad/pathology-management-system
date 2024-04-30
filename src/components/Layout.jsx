@@ -12,49 +12,49 @@ import SmsIcon from "@mui/icons-material/Sms"
 
 const Layout = (props) => {
   return (
-    <section className={`bg-gray-100 ${props.bg} min-h-screen`}>
+    <section id="layout" className={`bg-gray-100 ${props.className} min-h-screen`}>
       <div className="flex justify-start items-center">
-        <div className="bg-indigo-500 fixed top-0 left-0 hidden md:flex flex-wrap  h-screen w-80 text-center text-white font-bold flex-col space-y-4 pt-12">
+        <div className="bg-blue-gray-500 fixed top-0 left-0 hidden md:flex flex-wrap  h-screen w-80 text-center text-white font-bold flex-col space-y-4 pt-12">
           <Link to={"/"} className="pt-4 pb-8 text-2xl font-bold">
             Lab Manager
           </Link>
 
           <NavLink to={"/"} className="nav-btn">
             {" "}
-            <BorderAllIcon /> Overview
+             Overview
           </NavLink>
           <NavLink to={"/invoice/create"} className="nav-btn">
             {" "}
-            <AddIcon /> Create Invoice
+           Create Invoice
           </NavLink>
-          <NavLink to={"/deliver-report"} className="nav-btn">
+          <NavLink to={"/invoice/all"} className="nav-btn">
             {" "}
             All Invoices
           </NavLink>
-          <NavLink to={"/print/invoice"} className="nav-btn">
+          <NavLink to={"/print"} className="nav-btn">
             {" "}
             Print
           </NavLink>
           <NavLink to={"/upload-report"} className="nav-btn">
             {" "}
-            <CloudUploadIcon /> Upload Report
+            Upload Report
           </NavLink>
-          {/* <NavLink to={"/collect-payment"} className="nav-btn">
-            {" "}
-            <PaymentsIcon /> Collect Payment
-          </NavLink> */}
           <NavLink to={"/send-sms"} className="nav-btn">
             {" "}
-            <SmsIcon /> Send SMS
+           Send SMS
           </NavLink>
           <NavLink to={"/price-list"} className="nav-btn">
             {" "}
-            <CableIcon /> Price List
+             Price List
           </NavLink>
 
           <NavLink to={"/references"} className="nav-btn">
             {" "}
-            <CableIcon /> References
+             References
+          </NavLink>
+          <NavLink to={"/doctors"} className="nav-btn">
+            {" "}
+             Doctors
           </NavLink>
           <NavLink to={"/manage-profile"} className="nav-btn">
             {" "}
@@ -62,7 +62,7 @@ const Layout = (props) => {
           </NavLink>
         </div>
       </div>
-      <div className="md:ml-80">{props.children}</div>
+      <div className={`md:ml-80 ${props.className}`}>{props.children}</div>
     </section>
   )
 }
